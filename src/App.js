@@ -7,6 +7,7 @@ import RootLayout from "./components/RootLayout/RootLayout";
 import Logbook from "./components/Logbook/Logbook";
 import BlogPostPage from "./components/Blog/BlogPostPage";
 import NewBlogPostPage from "./components/Blog/NewBlogPostPage";
+import EditBlogPostPage from "./components/Blog/EditBlogPostPage";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
       { path: "/", element: <HomePage /> },
       { path: "/blog", element: <Blog /> },
       { path: "/blog/:postId", element: <BlogPostPage /> },
+      { path: "/blog/:postId/edit", element: <EditBlogPostPage /> },
       { path: "/todo", element: <Todo /> },
       { path: "/logbook", element: <Logbook /> },
       { path: "/blog/new", element: <NewBlogPostPage /> },
