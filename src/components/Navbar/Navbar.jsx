@@ -23,10 +23,13 @@ export default function Navbar() {
           <Button color="inherit">To-do</Button>
           <Button color="inherit">Daily Logbook</Button> */}
           <Box sx={{ display: 'flex', height: '5vh', alignItems: 'center', gap: 2, textDecoration: "none" }}>
+          <NavLink to="/" sx={{ textDecoration: "none" }}>
+              Home
+            </NavLink>
             <NavLink to="/blog" sx={{ textDecoration: "none" }}>
               Blog
             </NavLink>
-            <NavLink to="/to-do" sx={{ textDecoration: "none" }}>To-do</NavLink>
+            <NavLink to="/todo" sx={{ textDecoration: "none" }}>To-do</NavLink>
             <NavLink to="/logbook" sx={{ textDecoration: "none" }}>Daily Logbook</NavLink>
           </Box>
         </Toolbar>

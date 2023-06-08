@@ -1,37 +1,30 @@
-import logo from "./logo.svg";
 import "./App.css";
-import Navbar from "./components/Navbar/Navbar";
-import { Container, Box } from "@mui/material";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import HomePage from "./components/Home/HomePage";
+import Todo from "./components/Todo/Todo";
+import Blog from "./components/Blog/Blog";
+import RootLayout from "./components/RootLayout/RootLayout";
+import Logbook from "./components/Logbook/Logbook";
+import BlogPostPage from "./components/Blog/BlogPostPage";
+import NewBlogPostPage from "./components/Blog/NewBlogPostPage";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    children: [
+      { path: "/", element: <HomePage /> },
+      { path: "/blog", element: <Blog /> },
+      { path: "/blog/:postId", element: <BlogPostPage /> },
+      { path: "/todo", element: <Todo /> },
+      { path: "/logbook", element: <Logbook /> },
+      { path: "/blog/new", element: <NewBlogPostPage /> },
+    ],
+  },
+]);
 
 function App() {
-  return (
-    <>
-      <Container maxWidth="false" disableGutters>
-        <Navbar />
-        <Container
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            minHeight: "100vh",
-          }}
-        >
-          <Box
-            sx={{
-              width: 1200,
-              height: 600,
-              // backgroundColor: "primary.dark",
-              display: "flex",
-            }}
-          >
-            <h1>
-              Welcome to the productivity page! Click on the menu items to navigate.
-            </h1>
-          </Box>
-        </Container>
-      </Container>
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
