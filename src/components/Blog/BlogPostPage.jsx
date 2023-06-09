@@ -19,10 +19,19 @@ const BlogPostPage = () => {
             alignItems: "center",
           }}
         >
+          <Box>
+          <Link
+          to={{
+            pathname: `/blog`
+          }}
+        >
+          <Button>Back</Button>
+        </Link>
+          </Box>
           <Typography variant="h1" color="initial" sx={{ margin: "2rem" }}>
             {post.title}
           </Typography>
-          <Typography>Date: {post.date}</Typography>
+          <Typography>Created Date: {post.date}</Typography>
         </Box>
 
         <Typography variant="body1" color="initial" sx={{ margin: "2rem" }}>
@@ -32,7 +41,6 @@ const BlogPostPage = () => {
           to={{
             pathname: `/blog/${postId}/edit`,
             state: { post },
-            
           }}
         >
           <Button>Edit</Button>

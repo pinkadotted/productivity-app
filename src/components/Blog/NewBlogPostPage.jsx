@@ -2,9 +2,9 @@ import React from "react";
 import { Button, Container, Typography, Box } from "@mui/material";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
 import { Link } from "react-router-dom";
-import DUMMY_POSTS from "../DUMMY_POSTS";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
+import Date from "./Date";
 
 const NewBlogPostPage = () => {
   const textareaStyles = {
@@ -16,24 +16,42 @@ const NewBlogPostPage = () => {
   const [inputTitle, setInputTitle] = useState("");
   const [inputDesc, setInputDesc] = useState("");
   const [inputText, setInputText] = useState("");
+  const [inputDate, setInputDate] = useState(null);
 
-  const submitHandler = () => {
-    console.log(DUMMY_POSTS);
+  const changeDateHandler = (e, newDate) => {
+    setInputDate(newDate);
+    console.log("hello world");
+    console.log("inputdate: ", inputDate);
+  };
+
+  const submitHandler = async (event) => {
+    event.preventDefault();
     const postDetails = {
       title: inputTitle,
       description: inputDesc,
       content: inputText,
-      date: "1/2/2022",
-      id: "dummy",
+      date: inputDate,
     };
-    console.log(postDetails);
+
+    console.log("post details: ", postDetails);
 
     setInputTitle("");
     setInputDesc("");
     setInputText("");
+    // setInputDate();
 
-    DUMMY_POSTS.push(postDetails);
-    console.log(DUMMY_POSTS);
+    console.log("Submitting form");
+    fetch("http://localhost:5000/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postDetails),
+    }).then(function (response) {
+      console.log(response);
+      return response.json();
+    });
+    console.log("Form submitted.");
   };
 
   return (
@@ -53,7 +71,10 @@ const NewBlogPostPage = () => {
             id="fullWidth"
             sx={{ marginLeft: "1rem" }}
             value={inputTitle}
-            onChange={(e) => setInputTitle(e.target.value)}
+            onChange={(e) => {
+              console.log("title: ", e.target.value);
+              setInputTitle(e.target.value);
+            }}
           />
         </Box>
         <Box
@@ -81,9 +102,15 @@ const NewBlogPostPage = () => {
             alignItems: "center",
           }}
         >
-          <Typography variant="h6" align="center">
-            What would you like to write about today?{" "}
-          </Typography>
+          <Box>
+            <Typography variant="h6" align="center">
+              What would you like to write about today?{" "}
+            </Typography>
+
+            <Date value={inputDate} onChange={changeDateHandler} />
+            
+          </Box>
+
           <TextareaAutosize
             rows={4}
             placeholder="Enter text"
