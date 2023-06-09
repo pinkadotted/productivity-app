@@ -7,7 +7,7 @@ import { CardActionArea, Container, Grid } from "@mui/material";
 import AddButton from "./AddButton";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-// import DUMMY_POSTS from "../DUMMY_POSTS";
+import DUMMY_POSTS from "../DUMMY_POSTS";
 
 export default function Blog() {
 
@@ -33,7 +33,7 @@ export default function Blog() {
     <>
       <Grid container spacing={2}>
         {existingPosts.map((post) => (
-          <Grid post key={post.id} xs={12} sm={6} md={4}>
+          <Grid post key={post._id} xs={12} sm={6} md={4}>
             <Card
               sx={{
                 height: "50%",
@@ -43,7 +43,7 @@ export default function Blog() {
                 margin: "5rem",
               }}
               component={Link}
-              to={`/blog/${post.id}`}
+              to={`/blog/${post._id}`}
             >
               <CardActionArea>
                 <CardContent>
