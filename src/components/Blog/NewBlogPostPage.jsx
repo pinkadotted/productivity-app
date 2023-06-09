@@ -4,7 +4,10 @@ import TextareaAutosize from "@mui/base/TextareaAutosize";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
-import Date from "./Date";
+
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const NewBlogPostPage = () => {
   const textareaStyles = {
@@ -18,22 +21,14 @@ const NewBlogPostPage = () => {
   const [inputText, setInputText] = useState("");
   const [inputDate, setInputDate] = useState(null);
 
-  const changeDateHandler = (e, newDate) => {
-    setInputDate(newDate);
-    console.log("hello world");
-    console.log("inputdate: ", inputDate);
-  };
-
   const submitHandler = async (event) => {
     event.preventDefault();
     const postDetails = {
       title: inputTitle,
       description: inputDesc,
       content: inputText,
-      date: inputDate,
+      date: inputDate.toString(),
     };
-
-    console.log("post details: ", postDetails);
 
     setInputTitle("");
     setInputDesc("");
@@ -72,7 +67,6 @@ const NewBlogPostPage = () => {
             sx={{ marginLeft: "1rem" }}
             value={inputTitle}
             onChange={(e) => {
-              console.log("title: ", e.target.value);
               setInputTitle(e.target.value);
             }}
           />
@@ -107,8 +101,9 @@ const NewBlogPostPage = () => {
               What would you like to write about today?{" "}
             </Typography>
 
-            <Date value={inputDate} onChange={changeDateHandler} />
-            
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker value={inputDate} onChange={(val) => setInputDate(val)} />
+            </LocalizationProvider>
           </Box>
 
           <TextareaAutosize
