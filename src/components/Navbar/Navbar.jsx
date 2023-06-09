@@ -9,6 +9,12 @@ import { NavLink } from "react-router-dom";
 // import MenuIcon from '@mui/icons-material/Menu';
 
 export default function Navbar() {
+  // const getBlogPostsHandler = async () => {
+  //   const response = await fetch("http://localhost:5000/blog");
+  //   const responseData = response.json();
+  //   console.log('responseData: ', responseData)
+  // };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -22,15 +28,31 @@ export default function Navbar() {
           {/* <Button color="inherit">Blog</Button>
           <Button color="inherit">To-do</Button>
           <Button color="inherit">Daily Logbook</Button> */}
-          <Box sx={{ display: 'flex', height: '5vh', alignItems: 'center', gap: 2, textDecoration: "none" }}>
-          <NavLink to="/" sx={{ textDecoration: "none" }}>
+          <Box
+            sx={{
+              display: "flex",
+              height: "5vh",
+              alignItems: "center",
+              gap: 2,
+              textDecoration: "none",
+            }}
+          >
+            <NavLink to="/" sx={{ textDecoration: "none" }}>
               Home
             </NavLink>
-            <NavLink to="/blog" sx={{ textDecoration: "none" }}>
+            <NavLink
+              to="/blog"
+              sx={{ textDecoration: "none" }}
+              // onClick={getBlogPostsHandler}
+            >
               Blog
             </NavLink>
-            <NavLink to="/todo" sx={{ textDecoration: "none" }}>To-do</NavLink>
-            <NavLink to="/logbook" sx={{ textDecoration: "none" }}>Daily Logbook</NavLink>
+            <NavLink to="/todo" sx={{ textDecoration: "none" }}>
+              To-do
+            </NavLink>
+            <NavLink to="/logbook" sx={{ textDecoration: "none" }}>
+              Daily Logbook
+            </NavLink>
           </Box>
         </Toolbar>
       </AppBar>
