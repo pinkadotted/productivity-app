@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Container, Typography, Box } from "@mui/material";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
-import { Link, useNavigate, redirect } from "react-router-dom";
+import { Link, useNavigate, redirect, Form } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 
@@ -9,6 +9,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { red } from "@mui/material/colors";
+import FormField from "./Fields/FormField";
 
 const NewBlogPostPage = () => {
   const textareaStyles = {
@@ -23,6 +24,11 @@ const NewBlogPostPage = () => {
   const [inputDate, setInputDate] = useState(null);
 
   const navigate = useNavigate();
+
+  const handleDataFromChild = (data) => {
+    // Do something with the data received from the child component
+    setInputTitle(data);
+  };
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -51,11 +57,8 @@ const NewBlogPostPage = () => {
     });
     console.log("Form submitted.");
 
-
     navigate("/blog");
   };
-
-
 
   return (
     <>
@@ -68,16 +71,7 @@ const NewBlogPostPage = () => {
             alignItems: "center",
           }}
         >
-          <Typography variant="h3">Title: </Typography>
-          <TextField
-            fullWidth
-            id="fullWidth"
-            sx={{ marginLeft: "1rem" }}
-            value={inputTitle}
-            onChange={(e) => {
-              setInputTitle(e.target.value);
-            }}
-          />
+          <FormField sendDataToParent={handleDataFromChild}/>
         </Box>
         <Box
           sx={{
@@ -134,9 +128,9 @@ const NewBlogPostPage = () => {
           }}
         >
           {/* <Link to="/blog"> */}
-            <Button to onClick={submitHandler}>
-              Submit
-            </Button>
+          <Button to onClick={submitHandler}>
+            Submit
+          </Button>
           {/* </Link> */}
         </Box>
       </Container>

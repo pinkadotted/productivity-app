@@ -2,8 +2,7 @@ import { Button, Container, Typography, Box } from "@mui/material";
 import React from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-
-// import DUMMY_POSTS from "../DUMMY_POSTS";
+import BasicModal from './BasicModal'
 
 const BlogPostPage = () => {
   const params = useParams();
@@ -32,6 +31,7 @@ const BlogPostPage = () => {
   }, [location]);
 
   console.log("selectedPost:", selectedPost);
+
 
   return (
     <>
@@ -67,6 +67,8 @@ const BlogPostPage = () => {
         <Link to={`/blog/${postId}/edit`} state={selectedPost}>
           <Button>Edit</Button>
         </Link>
+
+        <BasicModal postId={postId} />
       </Container>
     </>
   );
