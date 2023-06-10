@@ -1,16 +1,19 @@
 import { Button, Container, Typography, Box } from "@mui/material";
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-import DUMMY_POSTS from "../DUMMY_POSTS";
+// import DUMMY_POSTS from "../DUMMY_POSTS";
 
 const BlogPostPage = () => {
   const params = useParams();
   const postId = params.postId;
-  console.log('postId: ', postId)
+  console.log("postId: ", postId);
 
   const [selectedPost, setSelectedPost] = useState([]);
+
+  const location = useLocation();
+  const [key, setKey] = useState(0);
 
   useEffect(() => {
     async function fetchData() {
@@ -24,9 +27,11 @@ const BlogPostPage = () => {
     }
 
     fetchData();
-  }, []);
 
-  console.log('selectedPost:', selectedPost);
+    setKey(prevKey => prevKey + 1);
+  }, [location]);
+
+  console.log("selectedPost:", selectedPost);
 
   return (
     <>
@@ -39,18 +44,19 @@ const BlogPostPage = () => {
           }}
         >
           <Box>
-          <Link
-          to={{
-            pathname: `/blog`
-          }}
-        >
-          <Button>Back</Button>
-        </Link>
+            <Link
+              to={{
+                pathname: `/blog`,
+              }}
+            >
+              <Button>Back</Button>
+            </Link>
           </Box>
           <Typography variant="h1" color="initial" sx={{ margin: "2rem" }}>
             {selectedPost.title}
           </Typography>
-          <Typography>Created Date:
+          <Typography>
+            Created Date:
             {selectedPost.date}
           </Typography>
         </Box>
@@ -58,12 +64,7 @@ const BlogPostPage = () => {
         <Typography variant="body1" color="initial" sx={{ margin: "2rem" }}>
           {selectedPost.content}
         </Typography>
-        <Link
-          to={{
-            pathname: `/blog/${postId}/edit`,
-            state: { selectedPost },
-          }}
-        >
+        <Link to={`/blog/${postId}/edit`} state={selectedPost}>
           <Button>Edit</Button>
         </Link>
       </Container>
