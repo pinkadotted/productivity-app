@@ -8,15 +8,16 @@ import DUMMY_POSTS from "../DUMMY_POSTS";
 const BlogPostPage = () => {
   const params = useParams();
   const postId = params.postId;
+  console.log('postId: ', postId)
 
-  const [existingPosts, setExistingPosts] = useState([]);
+  const [selectedPost, setSelectedPost] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:5000/blog');
+        const response = await fetch(`http://localhost:5000/blog/${postId}`);
         const data = await response.json();
-        setExistingPosts(data);
+        setSelectedPost(data);
       } catch (error) {
         console.error(error);
       }
@@ -25,10 +26,7 @@ const BlogPostPage = () => {
     fetchData();
   }, []);
 
-  console.log('existingPosts:', existingPosts);
-
-  const post = DUMMY_POSTS.find((post) => post._id === postId);
-  console.log("POST: ", post);
+  console.log('selectedPost:', selectedPost);
 
   return (
     <>
@@ -50,18 +48,20 @@ const BlogPostPage = () => {
         </Link>
           </Box>
           <Typography variant="h1" color="initial" sx={{ margin: "2rem" }}>
-            {post.title}
+            {selectedPost.title}
           </Typography>
-          <Typography>Created Date: {post.date}</Typography>
+          <Typography>Created Date:
+            {selectedPost.date}
+          </Typography>
         </Box>
 
         <Typography variant="body1" color="initial" sx={{ margin: "2rem" }}>
-          {post.content}
+          {selectedPost.content}
         </Typography>
         <Link
           to={{
             pathname: `/blog/${postId}/edit`,
-            state: { post },
+            state: { selectedPost },
           }}
         >
           <Button>Edit</Button>

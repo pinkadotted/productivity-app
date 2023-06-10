@@ -1,13 +1,14 @@
 import React from "react";
 import { Button, Container, Typography, Box } from "@mui/material";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, redirect } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { red } from "@mui/material/colors";
 
 const NewBlogPostPage = () => {
   const textareaStyles = {
@@ -20,6 +21,8 @@ const NewBlogPostPage = () => {
   const [inputDesc, setInputDesc] = useState("");
   const [inputText, setInputText] = useState("");
   const [inputDate, setInputDate] = useState(null);
+
+  const navigate = useNavigate();
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -47,7 +50,12 @@ const NewBlogPostPage = () => {
       return response.json();
     });
     console.log("Form submitted.");
+
+
+    navigate("/blog");
   };
+
+
 
   return (
     <>
@@ -102,7 +110,10 @@ const NewBlogPostPage = () => {
             </Typography>
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker value={inputDate} onChange={(val) => setInputDate(val)} />
+              <DatePicker
+                value={inputDate}
+                onChange={(val) => setInputDate(val)}
+              />
             </LocalizationProvider>
           </Box>
 
@@ -122,9 +133,11 @@ const NewBlogPostPage = () => {
             alignItems: "center",
           }}
         >
-          <Link to="/blog">
-            <Button onClick={submitHandler}>Submit</Button>
-          </Link>
+          {/* <Link to="/blog"> */}
+            <Button to onClick={submitHandler}>
+              Submit
+            </Button>
+          {/* </Link> */}
         </Box>
       </Container>
     </>

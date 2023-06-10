@@ -5,13 +5,16 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { CardActionArea, Container, Grid } from "@mui/material";
 import AddButton from "./AddButton";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import DUMMY_POSTS from "../DUMMY_POSTS";
+// import DUMMY_POSTS from "../DUMMY_POSTS";
 
 export default function Blog() {
 
   const [existingPosts, setExistingPosts] = useState([]);
+
+  const location = useLocation();
+  const [key, setKey] = useState(0);
 
   useEffect(() => {
     async function fetchData() {
@@ -25,7 +28,9 @@ export default function Blog() {
     }
 
     fetchData();
-  }, []);
+
+    setKey(prevKey => prevKey + 1);
+  }, [location]);
 
   console.log('existingPosts:', existingPosts);
   
